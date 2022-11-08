@@ -1,43 +1,48 @@
 import { Request, Response } from "express";
+import { insertCar, getCar } from "../services/item";
 import { handleHttp } from "../utils/error.handler";
 
-const getItem = ({ body }: Request, response: Response) => {
+const getItem = async ({ params }: Request, res: Response) => {
   try {
-
+    const { id } = params;
+    const response = await getCar(id);
+    const data = response ? response : 'NOT_FOUND';
+    res.send(data);
   } catch (e) {
-    handleHttp(response, "ERROR_GET_ITEM");
+    handleHttp(res, "ERROR_GET_ITEM", e);
   }
 };
 
-const getItems = ({ body }: Request, response: Response) => {
+const getItems = ({ body }: Request, res: Response) => {
   try {
 
   } catch (e) {
-    handleHttp(response, "ERROR_GET_ITEMS");
+    handleHttp(res, "ERROR_GET_ITEMS", e);
   }
 };
 
-const updateItem = ({ body }: Request, response: Response) => {
+const updateItem = ({ body }: Request, res: Response) => {
   try {
 
   } catch (e) {
-    handleHttp(response, "ERROR_UPDATE_ITEM");
+    handleHttp(res, "ERROR_UPDATE_ITEM", e);
   }
 };
 
-const addItem = ({ body }: Request, response: Response) => {
+const addItem = async ({ body }: Request, res: Response) => {
   try {
-    response.send(body);
+    const responseItem = await insertCar(body);
+    res.send(responseItem);
   } catch (e) {
-    handleHttp(response, "ERROR_ADD_ITEM");
+    handleHttp(res, "ERROR_ADD_ITEM", e);
   }
 };
 
-const deleteItem = ({ body }: Request, response: Response) => {
+const deleteItem = ({ body }: Request, res: Response) => {
   try {
 
   } catch (e) {
-    handleHttp(response, "ERROR_DELETE_ITEM");
+    handleHttp(res, "ERROR_DELETE_ITEM", e);
   }
 };
 
