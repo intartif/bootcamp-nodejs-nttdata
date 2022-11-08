@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { insertCar, getCar } from "../services/item";
+import { insertCar, getCar, getCars, updateCar, deleteCar } from "../services/item";
 import { handleHttp } from "../utils/error.handler";
 
 const getItem = async ({ params }: Request, res: Response) => {
@@ -13,17 +13,20 @@ const getItem = async ({ params }: Request, res: Response) => {
   }
 };
 
-const getItems = ({ body }: Request, res: Response) => {
+const getItems = async (req: Request, res: Response) => {
   try {
-
+    const response = await getCars();
+    res.send(response);
   } catch (e) {
     handleHttp(res, "ERROR_GET_ITEMS", e);
   }
 };
 
-const updateItem = ({ body }: Request, res: Response) => {
+const updateItem = async ({ params, body }: Request, res: Response) => {
   try {
-
+    const { id } = params;
+    const response = await updateCar(id, body);
+    res.send(response);
   } catch (e) {
     handleHttp(res, "ERROR_UPDATE_ITEM", e);
   }
@@ -38,9 +41,11 @@ const addItem = async ({ body }: Request, res: Response) => {
   }
 };
 
-const deleteItem = ({ body }: Request, res: Response) => {
+const deleteItem = async ({ params }: Request, res: Response) => {
   try {
-
+    const { id } = params;
+    const response = await deleteCar(id);
+    res.send(response);
   } catch (e) {
     handleHttp(res, "ERROR_DELETE_ITEM", e);
   }
