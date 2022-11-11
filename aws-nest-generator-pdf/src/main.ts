@@ -17,8 +17,8 @@ import { LambdaService } from './lambda/lambda.service';
  */
 export const handler: Handler = async (event: any,context: Context,callback: Callback) => {
   const appContext = await NestFactory.createApplicationContext(AppModule);
-  const appService = appContext.get(LambdaService); //TODO esto esta para localhost
-  // const appService = appContext.get(NotLambdaService); //TODO esto esta para PROD
+  const appService = appContext.get(LambdaService); //TODO esto esta para PROD
+  // const appService = appContext.get(NotLambdaService); //TODO esto esta para localhost
   const user = {
     name: `${event.queryStringParameters?.name}`,
   }
