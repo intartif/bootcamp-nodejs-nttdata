@@ -49,7 +49,7 @@
 
     isLoading(true);
 
-    fetch('https://q2r5ub7xp1.execute-api.us-east-2.amazonaws.com/dev/create-pdf', {
+    fetch('http://localhost:3000/create-pdf', {
       method: 'POST',
       headers: new Headers({
         'Accept': '*/*',
